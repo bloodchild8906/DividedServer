@@ -44,7 +44,6 @@ namespace DevidedServerTest
                 case "list":
                     server.SendCommand("list_connections");
                     break;
-
             }
         }
 

@@ -1,4 +1,5 @@
-﻿using ServerLibrary.Helpers;
+﻿using Newtonsoft.Json;
+using ServerLibrary.Helpers;
 using ServerLibrary.SLEventArgs;
 using System;
 using System.Collections.Generic;
@@ -50,18 +51,9 @@ namespace ServerLibrary
                     ServerSendData.SendDataToIp(ipAddress, command.ToByteArray());
                 }
             }
-            if (command.ToLower() == "list_connections")
-            {
-                string tmpString = "";
-                ManageConnection.ConnectedClients.ForEach(client =>
-                tmpString +=
-                "{\n" +
-                $"ip:{client.ip},\n" +
-                $"id:{client.id}\n" +
-                "}");
-
-                ReportServerMessage(tmpString);
-            }
+            if (command.ToLower() == "list_connections"&&!toClient)
+                ReportServerMessage(JsonConvert.SerializeObject(ManageConnection.ConnectedClients));
+            
 
         }
 
